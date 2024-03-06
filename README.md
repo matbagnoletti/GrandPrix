@@ -40,24 +40,24 @@ mvn -v
 ## Struttura e funzionamento
 Il progetto si compone dalle seguenti classi:
 
-- [Giudice.java](src/main/java/org/tpsit/Giudice.java): è la classe che gestisce:
+- [Giudice.java](src/main/java/tpsit/Giudice.java): è la classe che gestisce:
     - l'account dell'utente sotto forma di `Giocatore`
     - la lettura da file dei dati dei piloti e delle loro auto
     - l'avvio della la gara, la sua gestione e la classifica. 
 
-- [Giocatore.java](src/main/java/org/tpsit/Giocatore.java): classe che identifica l'utente che sta giocando.
+- [Giocatore.java](src/main/java/tpsit/Giocatore.java): classe che identifica l'utente che sta giocando.
 
-- [Pilota.java](src/main/java/org/tpsit/Pilota.java): Thread creato dalla classe `Giudice.java` per poter concorrere in gara simultaneamente ad altri piloti. Il metodo `run()` verrà utilizzato finché la propria `Auto` (associata come attributo) non abbia terminato il circuito (vedi metodo `percorri()`), segnalando al `Giudice` ogni qual volta venga completato un giro.
+- [Pilota.java](src/main/java/tpsit/Pilota.java): Thread creato dalla classe `Giudice.java` per poter concorrere in gara simultaneamente ad altri piloti. Il metodo `run()` verrà utilizzato finché la propria `Auto` (associata come attributo) non abbia terminato il circuito (vedi metodo `percorri()`), segnalando al `Giudice` ogni qual volta venga completato un giro.
 
-- [Auto.java](src/main/java/org/tpsit/Auto.java): è una classe associata a ciascun `Pilota` e possiede i metodi per poter avanzare nel circuito o generare (in modo random) un pit stop (se possibile)o un incidente. Eseguendo un pit stop, per quel round la velocità dell'auto sarà ridotta a 0.
+- [Auto.java](src/main/java/tpsit/Auto.java): è una classe associata a ciascun `Pilota` e possiede i metodi per poter avanzare nel circuito o generare (in modo random) un pit stop (se possibile)o un incidente. Eseguendo un pit stop, per quel round la velocità dell'auto sarà ridotta a 0.
    
-- [Cifrario.java](src/main/java/org/tpsit/Cifrario.java), [Matrice.java](src/main/java/org/tpsit/Matrice.java) e [Vigenere.java](src/main/java/org/tpsit/Vigenere.java): classi utilizzate per cifrare e decifrare la password dei giocatori salvata su file. Vedi progetto [Encryption](https://www.github.com/matbagnoletti/Encryption).
+- [Cifrario.java](src/main/java/tpsit/Cifrario.java), [Matrice.java](src/main/java/tpsit/Matrice.java) e [Vigenere.java](src/main/java/tpsit/Vigenere.java): classi utilizzate per cifrare e decifrare la password dei giocatori salvata su file. Vedi progetto [Encryption](https://www.github.com/matbagnoletti/Encryption).
 
-- [Circuito.java](src/main/java/org/tpsit/Circuito.java): classe che rappresenta un generico circuito che deve essere creato dall'utente, specificando la lunghezza in metri, il numero di giri, e il numero di pit stop possibili. Possiede un attributo `safetyCar` che viene controllato dal `Giudice` e, se impostato su `true`, fa avanzare tutte le auto a 50 m/s, così che nessuna possa superare l'altra.
+- [Circuito.java](src/main/java/tpsit/Circuito.java): classe che rappresenta un generico circuito che deve essere creato dall'utente, specificando la lunghezza in metri, il numero di giri, e il numero di pit stop possibili. Possiede un attributo `safetyCar` che viene controllato dal `Giudice` e, se impostato su `true`, fa avanzare tutte le auto a 50 m/s, così che nessuna possa superare l'altra.
 
-- [Gara.java](src/main/java/org/tpsit/Gara.java): classe che rappresenta la gara, con i metodi per poterla avviare, fermare e gestire la classifica.
+- [Gara.java](src/main/java/tpsit/Gara.java): classe che rappresenta la gara, con i metodi per poterla avviare, fermare e gestire la classifica.
 
-- [Main.java](src/main/java/org/tpsit/Main.java): classe principale del progetto, che avvia il gioco.
+- [Main.java](src/main/java/tpsit/Main.java): classe principale del progetto, che avvia il gioco.
 
 ## Licenza d'uso
 Questo progetto (e tutte le sue versioni) sono rilasciate sotto la [MB Collective Copyleft License](LICENSE).
