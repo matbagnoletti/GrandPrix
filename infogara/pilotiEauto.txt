@@ -1,0 +1,5 @@
+Lewis Hamilton;Mercedes;0;0
+Max Verstappen;Red Bull Racing;0;0
+Charles Leclerc;Ferrari;0;0
+Lando Norris;McLaren;0;0
+Fernando Alonso;Alpine;0;0
