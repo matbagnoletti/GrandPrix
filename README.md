@@ -30,12 +30,12 @@ mvn -v
 ## Installazione
 1. Scaricare il file compresso del progetto
 2. Estrarre il progetto
-3. Eseguire il Server e il Client separatamente:
-  - Tramite IDE
-  - Tramite terminale:
-    1. Naviga nella root del progetto
-    2. Esegui la build del progetto: `mvn clean install`.
-    3. Identifica il file `jar` nella directory `target` e avvia la classe Main: `java -jar target/GrandPrix-1.0-SNAPSHOT.jar Main`.
+3. Eseguire il programma:
+   - Tramite IDE
+   - Tramite terminale:
+     1. Naviga nella root del progetto
+     2. Esegui la build del progetto: `mvn clean install`.
+     3. Identifica il file `jar` nella directory `target` e avvia la classe Main: `java -jar target/GrandPrix-1.0-SNAPSHOT.jar Main`.
 
 ## Struttura e funzionamento
 Il progetto si compone dalle seguenti classi:
