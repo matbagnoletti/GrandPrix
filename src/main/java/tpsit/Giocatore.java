@@ -42,12 +42,17 @@ public class Giocatore {
             }
         }
     }
+
+    /**
+     * Metodo per inizializzare il profilo del giocatore creando l'opportuno oggetto Cifrario
+     * @see Cifrario
+     */
     public void inizializza() {
-        System.out.println("\033[33m--------------------< Benvenuto! >-------------------\033[0m");
+        System.out.println("\033[33m--------------------< Benvenuto! >-------------------\033[0m\n");
         System.out.print("Inserisci il tuo username: ");
         this.username = scanner.nextLine();
-        System.out.println("L'accesso ai dati è protetto da crittografia.\nSe già possiedi un account inserisci la chiave da te precedentemente scelta, altrimenti inventane una!");
-        System.out.println("La chiave deve essere composta da soli caratteri ASCII e non deve essere più lunga della password.");
+        System.out.println("\033[33mL'accesso ai dati è protetto da crittografia.\nSe già possiedi un account inserisci la chiave da te precedentemente scelta, altrimenti inventane una!\033[0m");
+        System.out.println("\033[33mLa chiave deve essere composta da soli caratteri ASCII e non deve essere più lunga della password.\033[0m");
 
         String verme;
         boolean chiaveValida;
@@ -74,12 +79,18 @@ public class Giocatore {
 
         this.cifrario = new Cifrario(verme);
     }
+
+    /**
+     * Metodo per l'autenticazione dell'utente.
+     * Mediante la funzione Giocatore.ricerca() è possibile effettuare o il login o la registrazione.
+     * Il login permette 3 tentativi massimi di inserimento password, dopodiché il programma verrà terminato.
+     */
     public void autentica() {
         int tentativi = 3;
         boolean autenticato = false;
 
         if(ricerca()){
-            System.out.println("\033[33m----------------------< Login >----------------------\033[0m");
+            System.out.println("\n\033[33m----------------------< Login >----------------------\033[0m\n");
             do {
                 System.out.print("Password: ");
                 String password = scanner.nextLine();
@@ -97,7 +108,7 @@ public class Giocatore {
                 }
             } while (!autenticato);
         } else {
-            System.out.println("\033[33m------------------< Registrazione >------------------\033[0m");
+            System.out.println("\n\033[33m------------------< Registrazione >------------------\033[0m\n");
             do {
                 System.out.print("Scegli una password: ");
                 String password = scanner.nextLine();
@@ -131,9 +142,10 @@ public class Giocatore {
     private boolean accesso(String password) {
       if (username != null && !username.equalsIgnoreCase("")) {
          try (BufferedReader lettore = new BufferedReader(new FileReader("giocatori/" + username + ".giocatore"))) {
-            String riga = lettore.readLine(); // La riga del file contiene la password cifrata
-            if (riga != null) {
-               return cifrario.decifra(riga).equals(password.toUpperCase());
+            String pswCifrata = lettore.readLine(); // La riga del file contiene la password cifrata
+            if (pswCifrata != null) {
+                String pswInChiaro = cifrario.decifra(pswCifrata);
+                return pswInChiaro.equals(password);
             } else {
                return false;
             }
@@ -147,25 +159,41 @@ public class Giocatore {
 
     /**
     * Metodo che permette di registrare un nuovo giocatore.
+    * Ad ogni giocatore sono associati 2 file: username.giocatore contenente la password cifrata del suo account; username.gare contenente i progressi ottenuti giocando.
     * @param password Password del nuovo giocatore.
     * @return true se la registrazione è avvenuta con successo, false altrimenti.
     */
     private boolean registrazione(String password) {
         if (username != null && !username.equalsIgnoreCase("")) {
            File fileUtente = new File("giocatori/" + username + ".giocatore");
-            try {
-                if(!fileUtente.createNewFile()){
+           File gareUtente = new File("giocatori/" + username + ".gare");
+            
+           try {
+               if(!fileUtente.createNewFile()){
                    return false;
-                }
-            } catch (IOException e) {
-                return false;
-            }
-            try (BufferedWriter scrittore = new BufferedWriter(new FileWriter("giocatori/" + username + ".giocatore"))) {
-              scrittore.write(cifrario.cifra(password.toUpperCase()));
-              return true;
+               }
+               if(!gareUtente.createNewFile()){
+                   return false;
+               }
            } catch (IOException e) {
-              return false;
+               return false;
            }
+           
+           try (BufferedWriter scrittore = new BufferedWriter(new FileWriter("giocatori/" + username + ".giocatore"));
+           BufferedWriter scrittoreGare = new BufferedWriter(new FileWriter("giocatori/" + username + ".gare"));
+           BufferedReader lettore = new BufferedReader(new FileReader("infogara/default.txt"))) {
+               scrittore.write(cifrario.cifra(password));
+               scrittore.newLine();
+               String riga;
+               while((riga = lettore.readLine()) != null){
+                   scrittoreGare.write(riga);
+                   scrittoreGare.newLine();
+               }
+               return true;
+           } catch (IOException e) {
+               return false;
+           }
+            
         } else {
             return false;
         }
@@ -187,5 +215,9 @@ public class Giocatore {
      */
     public void setPilotaScelto(String pilotaScelto) {
         this.pilotaScelto = pilotaScelto;
+    }
+    
+    public String getUsername() {
+        return this.username;
     }
 }

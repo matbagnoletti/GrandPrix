@@ -37,7 +37,7 @@ public class Giudice {
         this.incidentati = new CopyOnWriteArrayList<>();
         this.gara = new Gara(this);
         this.giroSicuro = false;
-        gara.inizializza();
+        gara.inizializza(giocatore.getUsername());
         gara.scegliPilota(giocatore);
         gara.trucca();
     }
@@ -46,7 +46,7 @@ public class Giudice {
      * Metodo di avvio dei thread piloti in gara.
      */
     public void avviaGara() {
-        System.out.println("\033[33m-------------------< Inizio Gara >-------------------\033[0m\n");
+        System.out.println("\n\033[33m-------------------< Inizio Gara >-------------------\033[0m\n");
 
         for(Pilota pilota : gara.getPiloti()){
             pilota.start();
@@ -61,7 +61,7 @@ public class Giudice {
         }
 
         System.out.println("\033[33m--------------------< Fine Gara >--------------------\033[0m\n");
-        System.out.println("\033[33m-------------------< Classifica >--------------------\033[0m");
+        System.out.println("\033[33m-------------------< Classifica >--------------------\033[0m\n");
         stampaClassifica();
     }
 
@@ -169,8 +169,8 @@ public class Giudice {
     /**
      * Metodo per salvare i progressi dei piloti e delle auto in un file di testo.
      */
-    public void salvaProgressi() {
-        try (BufferedWriter scrittore = new BufferedWriter(new FileWriter("infogara/pilotiEauto.txt"))) {
+    public void salvaProgressi(String username) {
+        try (BufferedWriter scrittore = new BufferedWriter(new FileWriter("giocatori/" + username + ".gare"))) {
             for(Pilota pilota : gara.getPiloti()){
                 scrittore.write(pilota.getNome() + ";" + pilota.getSquadra() + ";" + pilota.getVittorie() + ";" + pilota.getGareGiocate());
                 scrittore.newLine();

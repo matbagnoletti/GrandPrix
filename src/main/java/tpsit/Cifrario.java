@@ -1,6 +1,7 @@
 package tpsit;
 
 /**
+ * Classe che permette di cifrare e decifrare un messaggio secondo Vigenere.
  * @author Matteo Bagnoletti Tini
  * @version 1.0
  * @see <a href="https://github.com/matbagnoletti/Encryption">Original project (Encryption)</a>
@@ -11,10 +12,7 @@ package tpsit;
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/io/BufferedReader.html">Documentazione Oracle BufferedReader</a>
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStreamReader.html">Documentazione Oracle InputStreamReader</a>
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html">Documentazione Oracle IOException</a>
- * 
- * Classe che permette di cifrare e decifrare un messaggio secondo Vigenere (in questo caso la password);
  */
-
 public class Cifrario {
     private Matrice matrice;
     private Vigenere vigenere;
@@ -32,7 +30,6 @@ public class Cifrario {
             System.out.println("Attenzione! Il thread cifratore è stato interrotto!");
             return testoInChiaro;
         }
-        testoInChiaro = testoInChiaro.toUpperCase();
 
         /* cifratura */
         String testoCifrato;
@@ -53,7 +50,6 @@ public class Cifrario {
             System.out.println("Attenzione! Il thread cifratore è stato interrotto!");
             return testoCifrato;
         }
-        testoCifrato = testoCifrato.toUpperCase();
 
         /* decifratura */
         String testoInChiaro;

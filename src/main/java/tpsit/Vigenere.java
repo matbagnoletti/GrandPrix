@@ -1,11 +1,14 @@
 package tpsit;
 
 /**
- * @author Monica Ciuchetti & Matteo Bagnoletti Tini
+ * Classe a cui è demandato il popolamento della Matrice di Vigenere
+ * @author Monica Ciuchetti
+ * @author Matteo Bagnoletti Tini
  * @version 2.0
  * @since 1.0
  * @see <a href="https://github.com/matbagnoletti/Encryption">Original project (Encryption)</a>
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html">Documentazione Oracle Runnable</a>
+ * @see Matrice
  */
 public class Vigenere implements Runnable{
 

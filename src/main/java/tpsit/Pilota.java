@@ -9,10 +9,16 @@ public class Pilota extends Thread {
     private String squadra;
     private int vittorie;
     private int gareGiocate;
+    /**
+     * Variabile che indica se il pilota ha vinto la gara
+     */
     private boolean vincitore = false;
     private Giudice giudice;
     private volatile boolean safetyCar = false;
     private int prossimoGiro;
+    /**
+     * Variabile che indica se il pilota ha avuto un incidente
+     */
     private boolean incidentato = false;
     /**
      * Auto del pilota.
@@ -69,6 +75,9 @@ public class Pilota extends Thread {
         this.auto.setSabotata();
     }
 
+    /**
+     * Metodo principale di ogni pilota (Thread) per cui, finché lo spazio rimanente del circuito non sarà pari a zero, esso potrà avere incidenti, effettuare pit stop o avanzare.
+     */
     @Override
     public void run() {
         this.gareGiocate++;
@@ -76,11 +85,11 @@ public class Pilota extends Thread {
         int velocita = 0;
 
         while(auto.getSpazioRimanente() > 0){
-            if(auto.incidente()){
+            if(auto.incidente(contaGiri)){
                 giudice.segnalaIncidente(this);
                 incidentato = true;
                 break;
-            } else if(auto.pitstop()){
+            } else if(auto.pitstop(contaGiri)){
                 giudice.segnalaPitStop(this);
             } else {
                 velocita = auto.percorri(safetyCar);

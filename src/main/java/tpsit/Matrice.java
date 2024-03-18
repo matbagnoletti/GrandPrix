@@ -1,12 +1,13 @@
 package tpsit;
 
 /**
- * @author Monica Ciuchetti & Matteo Bagnoletti Tini
+ * Matrice del cifrario di Vigenere
+ * @author Monica Ciuchetti
+ * @author Matteo Bagnoletti Tini
  * @version 2.0
  * @since 1.0
  * @see <a href="https://github.com/matbagnoletti/Encryption">Original project (Encryption)</a>
  */
-
 public class Matrice {
 
     char[][] mv;
@@ -54,13 +55,9 @@ public class Matrice {
                 k = 0;
             }
 
-            if(!Character.isLetter(fch.charAt(j))){
-                fcf.append(fch.charAt(j));
-            } else {
-                col = (int) fch.charAt(j) - 32;
-                row = (int) verme.charAt(k) - 32;
-                fcf.append(mv[row][col]);
-            }
+            col = (int) fch.charAt(j) - 32;
+            row = (int) verme.charAt(k) - 32;
+            fcf.append(mv[row][col]);
             k++;
         }
 
@@ -80,15 +77,11 @@ public class Matrice {
                 k = 0;
             }
 
-            if(!Character.isLetter(fcf.charAt(j))){
-                fch.append(fcf.charAt(j));
-            } else {
-                row = (int) verme.charAt(k) - 32;
-                for (col = 0; col < 95; col++) {
-                    if (mv[row][col] == fcf.charAt(j)) {
-                        char car = (char) (col + 32);
-                        fch.append(car);
-                    }
+            row = (int) verme.charAt(k) - 32;
+            for (col = 0; col < 95; col++) {
+                if (mv[row][col] == fcf.charAt(j)) {
+                    char car = (char) (col + 32);
+                    fch.append(car);
                 }
             }
             k++;

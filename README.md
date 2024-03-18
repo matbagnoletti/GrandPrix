@@ -37,14 +37,14 @@ mvn -v
      2. Esegui la build del progetto: `mvn clean install`.
      3. Identifica il file `jar` nella directory `target` e avvia la classe Main: `java -jar target/GrandPrix-1.0-SNAPSHOT.jar Main`.
 
-## Struttura e funzionamento
+## Struttura
 Il progetto si compone dalle seguenti classi appartenenti al package `tpsit`:
 
 - [Giudice.java](src/main/java/tpsit/Giudice.java): classe che gestisce l'avvio della la gara, la sua gestione e la classifica. 
 
 - [Giocatore.java](src/main/java/tpsit/Giocatore.java): classe che identifica l'utente che sta giocando. Ogni utente deve essere necessariamente registrato nel sistema per poterlo utilizzare.
 
-- [Pilota.java](src/main/java/tpsit/Pilota.java): classe che identifica ciascun pilota predisposto dal sistema ed avviato come Thread per poter concorrere in gara simultaneamente ad altri piloti. Il metodo `run()` verrà utilizzato finché la propria `Auto` (associata come attributo) non abbia terminato il circuito (vedi metodo `percorri()`), segnalando al `Giudice` ogni qual volta venga completato un giro o eventi particolari (pit stop - incidenti).
+- [Pilota.java](src/main/java/tpsit/Pilota.java): classe che identifica ciascun pilota predisposto dal sistema ed avviato come un Thread per poter concorrere in gara simultaneamente ad altri piloti. Il metodo `run()` verrà utilizzato finché la propria `Auto` (associata come attributo) non terminerà il circuito (vedi metodo `percorri()`), segnalando al `Giudice` ogni qual volta venga completato un giro o altri eventi particolari (pit stop - incidenti).
 
 - [Auto.java](src/main/java/tpsit/Auto.java): classe associata a ciascun `Pilota` dotata di specifici metodi per poter avanzare nel circuito (in modo random), effettuare un pit stop (se possibile) o avere un incidente. Eseguendo un pit stop, per quel giro, la velocità dell'auto sarà ridotta a 0.
    
@@ -55,6 +55,17 @@ Il progetto si compone dalle seguenti classi appartenenti al package `tpsit`:
 - [Gara.java](src/main/java/tpsit/Gara.java): classe che rappresenta la gara nel suo complesso, con i metodi per poterla avviare, fermare e gestire.
 
 - [Main.java](src/main/java/tpsit/Main.java): classe principale del progetto, che avvia il gioco.
+
+## Funzionamento
+1. All'avvio viene creato un oggetto `Giocatore`. Dopo aver inserito lo username e la chiave di cifratura, il programma procede a ricercare il profilo utente. Nel caso in cui venga trovato viene effettuato l'accesso, altrimenti la registrazione.
+    - Ogni profilo utente si compone da due file: `<username>.giocatore`, contenente la password cifrata, e `<username>.gare`, contenente i progressi e i dati delle partite giocate dall'utente. Nel caso di primo accesso, il sistema provvederà a creare i due file, utilizzando quello di [default](infogara/default.txt) per i dati delle partite.
+2. Il sistema crea un oggetto `Giudice` il quale provvedere a richiedere all'utente di configurare le impostazioni di gara, per poi avviarla.
+    - Il giudice nella fase di configurazione provvedere a leggere dal file del giocatore i dati delle partite precedentemente eseguite (se presenti), creando tanti oggetti `Pilota` quanto quelli presenti nel file.
+    - La gara è configurata in modo che pit stop e incidenti non possano avvenire durante il primo o l'ultimo giro.
+3. Il giudice, dopo aver atteso la fine della gara, comunica all'utente l'esito ottenuto, terminando il programma dopo aver salvato i progressi.
+
+## Documentazione
+Questo progetto è stato opportunamente documentato utilizzando lo standard [Javadoc](docs/javadoc/index.html).
 
 ## Licenza d'uso
 Questo progetto (e tutte le sue versioni) sono rilasciate sotto la [MB Collective Copyleft License](LICENSE).

@@ -1,5 +1,9 @@
 package tpsit;
 
+/**
+ * Classe di avvio del programma.
+ * @author Matteo Bagnoletti Tini
+ */
 public class Main {
     public static void main(String[] args){
         Giocatore giocatore = new Giocatore();
@@ -13,6 +17,6 @@ public class Main {
         } else {
             System.out.println("\033[31mHai perso! :(\033[0m");
         }
-        giudice.salvaProgressi();
+        giudice.salvaProgressi(giocatore.getUsername());
     }
 }

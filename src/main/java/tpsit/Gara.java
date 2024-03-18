@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Classe che identifica una singola gara del GrandPrix nel suo complesso.
+ * Classe che identifica una singola gara del GrandPrix durante una specifica esecuzione.
  * @author Matteo Bagnoletti Tini
  */
 public class Gara {
@@ -28,7 +28,7 @@ public class Gara {
     }
 
     /**
-     * Metodo per la verifica dell'esistenza della direcotory "infogara" e del file "pilotiEauto.txt" per il funzionamento della gara.
+     * Metodo per la verifica dell'esistenza della direcotory "infogara" e del file "default.txt" per il funzionamento della gara.
      * Termina l'esecuzione nel caso in cui si verifichi un errore.
      */
     private void controllaDir() {
@@ -37,7 +37,7 @@ public class Gara {
             System.out.println("\033[31mErrore nel caricamento della directory dei piloti/auto!\033[0m");
             System.exit(1);
         } else {
-            File filePiloti = new File("infogara/pilotiEauto.txt");
+            File filePiloti = new File("infogara/default.txt");
             if(!filePiloti.exists() && !filePiloti.isFile()){
                 System.out.println("\033[31mErrore nel caricamento del file dei piloti/auto!\033[0m");
                 scanner.close();
@@ -47,10 +47,10 @@ public class Gara {
     }
 
     /**
-     * Metodo che inizializza e configura il circuito di gara e carica i piloti memorizzati nel file "pilotiEauto.txt".
+     * Metodo che inizializza e configura il circuito di gara e carica i piloti memorizzati nel file "default.txt".
      */
-    public void inizializza() {
-        System.out.println("\033[33m---------------------< Circuito >--------------------\033[0m");
+    public void inizializza(String username) {
+        System.out.println("\n\033[33m---------------------< Circuito >--------------------\033[0m\n");
         System.out.print("Inserisci il nome del circuito in cui gareggiare: ");
         String nomeC = scanner.nextLine();
 
@@ -76,7 +76,7 @@ public class Gara {
 
         int ps = -1;
         do {
-            System.out.print("Numero pit-stop permessi: ");
+            System.out.print("Numero pit-stop permessi (\033[33meffettuabili dal secondo al penultimo giro\033[0m): ");
             try {
                 ps = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
@@ -85,18 +85,18 @@ public class Gara {
         } while (ps < 0);
 
         this.circuito = new Circuito(nomeC, lunghezza, ps, giri);
-        this.piloti = caricaPiloti();
+        this.piloti = caricaPiloti(username);
     }
 
     /**
-     * Metodo per la lettura del file "pilotiEauto.txt" e l'ottenimento dei piloti e i loro dati memorizzati.
+     * Metodo per la lettura del file "default.txt" e l'ottenimento dei piloti e i loro dati memorizzati.
      * Termina l'esecuzione nel caso in cui si verifichi un errore.
      * @return l'array contenente i piloti.
      * @see Pilota
      */
-    private CopyOnWriteArrayList<Pilota> caricaPiloti() {
+    private CopyOnWriteArrayList<Pilota> caricaPiloti(String username) {
         CopyOnWriteArrayList<Pilota> piloti = new CopyOnWriteArrayList<>();
-        try (BufferedReader lettore = new BufferedReader(new FileReader("infogara/pilotiEauto.txt"))){
+        try (BufferedReader lettore = new BufferedReader(new FileReader("giocatori/" + username + ".gare"))){
             String riga;
             while((riga = lettore.readLine()) != null){
                 String[] info = riga.split(";");
@@ -121,7 +121,7 @@ public class Gara {
      * @see Giocatore
      */
     public void scegliPilota(Giocatore giocatore) {
-        System.out.println("\033[33m----------------------< Pilota >---------------------\033[0m");
+        System.out.println("\n\033[33m----------------------< Pilota >---------------------\033[0m\n");
         int pilotaScelto = 0;
         do {
             System.out.println("Piloti in gara:");
@@ -145,11 +145,12 @@ public class Gara {
      * @see Pilota
      */
     public void trucca() {
-        System.out.println("\033[33m-------------------< Trucca Gara >-------------------\033[0m");
+        System.out.println("\n\033[33m-------------------< Trucca Gara >-------------------\033[0m\n");
         System.out.print("Vuoi truccare la gara? (S/N) ");
         String trucca = scanner.nextLine();
         if(trucca.equalsIgnoreCase("s")){
             int pilotaScelto = 0;
+            System.out.println("\033[33mAttenzione! I piloti non possono avere incidenti durante il primo e l'ultimo giro.\033[0m");
             do {
                 System.out.print("Inserisci il numero del pilota da sabotare: ");
                 try {

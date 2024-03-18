@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"tpsit","l":"Auto"},{"p":"tpsit","l":"Cifrario"},{"p":"tpsit","l":"Circuito"},{"p":"tpsit","l":"Gara"},{"p":"tpsit","l":"Giocatore"},{"p":"tpsit","l":"Giudice"},{"p":"tpsit","l":"Main"},{"p":"tpsit","l":"Matrice"},{"p":"tpsit","l":"Pilota"},{"p":"tpsit","l":"Vigenere"}];updateSearchResults();
