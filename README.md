@@ -68,4 +68,4 @@ Il progetto si compone dalle seguenti classi appartenenti al package `tpsit`:
 Questo progetto è stato opportunamente documentato utilizzando lo standard [Javadoc](docs/javadoc/index.html).
 
 ## Licenza d'uso
-Questo progetto (e tutte le sue versioni) sono rilasciate sotto la [MB Collective Copyleft License](LICENSE).
+Questo progetto (e tutte le sue versioni) sono rilasciate sotto la [MB General Copyleft License](LICENSE).
